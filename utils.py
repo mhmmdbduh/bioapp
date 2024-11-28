@@ -13,7 +13,7 @@ def read_fasta_file(file):
 
 def count_nucleotides(filename):
     #create dictionary to store nucleotides
-    gene = read_fasta_file(filename)
+    gene = filename
     nucleotides = {"A": 0, 'C': 0, 'G': 0, 'T':0 }
     #"ACTGTGTCGATCGATCAGCTGGATCAAT"
     #count the nucleotides, then add to the dictionary
@@ -27,7 +27,7 @@ def count_nucleotides(filename):
 
 
 def count_codons(filename):
-    gene = read_fasta_file(filename)
+    gene = filename
     gene = gene.transcribe()
     codons = {} #Empty dictionary
     # "ACTGTGTCGATCGATCAGCTGGATCAAT"
@@ -122,3 +122,35 @@ def bar_chart_viz(dataframe, title, color):
     ax.set_ylim(0, max(dataframe['Count']) * 1.1)
 
     plt.show() #show the plot
+
+
+
+
+
+    def dump_code():
+        fig, ax = plt.subplots(figsize=(20, 10))
+        ax1 = ax.bar(df["Nucleotide"], df['Count'], color=['#2589BD', '#FE4A49', '#B9E3C6', '#F8C537'])
+        for bar in ax1:
+            yval = bar.get_height()
+            plt.text(bar.get_x() + bar.get_width()/2.0, yval + (yval*0.02), str(yval), ha='center', fontsize=12)
+        # Add grid horizontal line
+        ax.yaxis.grid(True, linestyle='-.', linewidth=0.5, color='black')
+
+        plt.margins(x=0.01)
+        ax.set_xticks(range(len(df["Nucleotide"])))
+        ax.set_xticklabels(['Adenine', 'Cytosine', 'Guanine', 'Thymine'])
+        plt.title('Number of Nucleotides in Gene', fontsize=16)
+        ax.set_axisbelow(True)
+        ax.spines['top'].set_visible(False)
+        ax.spines['right'].set_visible(False)
+        ax.spines['left'].set_visible(False)
+        ax.spines['bottom'].set_visible(False)
+
+        # Remove axis lines
+        #ax.xaxis.set_visible(False)
+        #ax.yaxis.set_visible(False)
+
+        # Adjust y-axis limits to provide more space for labels
+        
+        ax.set_ylim(0, max(df['Count']) * 1.1)
+        st.pyplot(fig)
