@@ -15,7 +15,8 @@ st.subheader("Sequence Tools")
 st.write("Essential tool for sequence manipulationn. Transcription, Translation, finding Reverse compliment of your sequence.")
 transcribe, translate, read_fasta = st.columns(3)
 
-fasta_file = read_fasta_file(filename)
+if filename is not None:
+    fasta_file = read_fasta_file(filename)
 
 if transcribe.button("Transcribe"):    
     if filename is not None:
@@ -217,6 +218,7 @@ if st.button("visualize Sequences"):
         ax.legend(legend_handles, legend_labels,  loc='upper center', bbox_to_anchor=(0.1, 1.0), ncol=4)
         plt.title('Visualization of Nucleotides in Chromosome 17', fontdict={'color': 'white', 'fontsize': 20})
         st.pyplot(fig)
+
 
 
 
